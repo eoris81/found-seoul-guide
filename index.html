@@ -40,9 +40,9 @@ a{color:inherit}
 .mast .glow{position:absolute;top:-320px;left:50%;transform:translateX(-50%);
   width:1100px;height:560px;background:radial-gradient(closest-side,rgba(216,255,62,.16),transparent 72%);
   filter:blur(14px);pointer-events:none}
-.wordmark{font-family:var(--disp);font-size:clamp(58px,11vw,132px);line-height:.78;
-  letter-spacing:.01em;text-transform:uppercase;margin:0;position:relative}
-.wordmark em{font-style:normal;display:block;color:var(--acid)}
+.wordmark{font-family:var(--disp);font-size:clamp(52px,13vw,148px);line-height:.86;
+  letter-spacing:.005em;text-transform:uppercase;margin:0;position:relative;white-space:nowrap}
+.wordmark em{font-style:normal;color:var(--acid)}
 .mast .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
   color:var(--ink-3);margin:0 0 26px}
 .mast .lede{margin:28px 0 0;max-width:52ch;color:var(--ink-2);font-size:17px}
@@ -172,7 +172,7 @@ footer{border-top:1px solid var(--hair);margin-top:60px;padding-top:22px;
   <div class="in">
     <div class="glow"></div>
     <p class="kicker">Store Operations Manual</p>
-    <h1 class="wordmark">Found<em>Seoul</em></h1>
+    <h1 class="wordmark">Found&nbsp;<em>Seoul</em></h1>
     <p class="lede">매일 스토어를 운영하는 분을 위한 문서입니다. 상품 올리기, 사진 준비하기, 블로그 글 쓰기 — 이 세 가지가 대부분입니다. 코드를 몰라도 됩니다.</p>
     <div class="meta">
       <span>Ver <b>2026-08-01</b></span>
