@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOUND SEOUL — 스토어 운영 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0B; --surface:#121215; --surface-2:#17171B;
+  --hair:#26262C; --hair-2:#34343C;
+  --ink:#EFEDE8; --ink-2:#A6A6B0; --ink-3:#6E6E79;
+  --acid:#D8FF3E; --warn:#FF6A45; --ok:#5BE0A0;
+  --disp:"League Gothic","Oswald",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  font-weight:300;font-size:16px;line-height:1.8;letter-spacing:-.003em;
+  -webkit-font-smoothing:antialiased;
+}
+/* fine grain + vignette */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+  mix-blend-mode:overlay;
+}
+::selection{background:var(--acid);color:#0A0A0B}
+a{color:inherit}
+
+/* ---------- masthead ---------- */
+.mast{position:relative;z-index:2;border-bottom:1px solid var(--hair);overflow:hidden}
+.mast .in{max-width:var(--maxw);margin:0 auto;padding:74px 32px 40px;position:relative}
+.mast .glow{position:absolute;top:-320px;left:50%;transform:translateX(-50%);
+  width:1100px;height:560px;background:radial-gradient(closest-side,rgba(216,255,62,.16),transparent 72%);
+  filter:blur(14px);pointer-events:none}
+.wordmark{font-family:var(--disp);font-size:clamp(58px,11vw,132px);line-height:.78;
+  letter-spacing:.01em;text-transform:uppercase;margin:0;position:relative}
+.wordmark em{font-style:normal;display:block;color:var(--acid)}
+.mast .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 26px}
+.mast .lede{margin:28px 0 0;max-width:52ch;color:var(--ink-2);font-size:17px}
+.mast .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.mast .meta b{color:var(--acid);font-weight:600}
+
+/* ---------- shell ---------- */
+.shell{max-width:var(--maxw);margin:0 auto;padding:0 32px 140px;
+  display:grid;grid-template-columns:190px 1fr;gap:64px;position:relative;z-index:2}
+nav.idx{position:sticky;top:0;align-self:start;padding:52px 0 0;height:100vh}
+nav.idx b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+nav.idx a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink-2);
+  font-size:13.5px;padding:6px 0;border-bottom:1px solid transparent;transition:.18s}
+nav.idx a span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);min-width:16px}
+nav.idx a:hover{color:var(--acid)}
+nav.idx a:hover span{color:var(--acid)}
+
+main{padding-top:52px;min-width:0}
+
+/* ---------- sections ---------- */
+section{padding:56px 0;border-top:1px solid var(--hair)}
+section:first-child{border-top:none;padding-top:8px}
+.hd{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+.hd .num{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--acid)}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:.95;
+  margin:0 0 22px;text-transform:uppercase;letter-spacing:.005em}
+h3{font-size:17px;font-weight:600;margin:38px 0 10px;letter-spacing:-.01em}
+h4{font-size:14px;font-weight:600;margin:26px 0 8px;color:var(--ink-2)}
+p{margin:12px 0;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:600}
+ul{margin:12px 0;padding-left:18px}
+li{margin:6px 0;color:var(--ink-2)}
+li::marker{color:var(--ink-3)}
+
+code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);
+  border:1px solid var(--hair-2);padding:2px 7px;color:var(--acid);white-space:nowrap}
+pre{background:var(--surface);border:1px solid var(--hair);padding:18px 20px;overflow-x:auto;
+  font-family:var(--mono);font-size:13px;line-height:1.75;color:var(--ink-2);margin:18px 0}
+pre b{color:var(--acid);font-weight:400}
+
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14.5px;background:var(--surface)}
+th{background:#1B1B20;text-align:left;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:400;
+  padding:11px 15px;border-bottom:1px solid var(--hair-2)}
+td{padding:13px 15px;border-bottom:1px solid var(--hair);color:var(--ink-2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink)}
+
+/* ---------- steps ---------- */
+.step{display:grid;grid-template-columns:52px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--hair)}
+.step:last-of-type{border-bottom:none}
+.step .n{font-family:var(--disp);font-size:40px;line-height:.85;color:var(--hair-2);
+  transition:color .2s}
+.step:hover .n{color:var(--acid)}
+.step .t{font-size:17px;font-weight:600;margin:0 0 4px;color:var(--ink)}
+.step p{margin:6px 0}
+.step .req{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--acid);
+  text-transform:uppercase;margin-left:8px}
+
+/* ---------- callouts ---------- */
+.call{border-left:2px solid var(--acid);background:var(--surface);padding:16px 20px;margin:22px 0}
+.call.warn{border-color:var(--warn)}
+.call p{margin:0;color:var(--ink)}
+.call .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acid);display:block;margin-bottom:6px}
+.call.warn .lbl{color:var(--warn)}
+
+/* ---------- ratio visualiser ---------- */
+.ratios{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:26px 0 10px}
+.rt{width:132px}
+.rt .box{background:linear-gradient(150deg,#1E1E24,#141418);border:1px solid var(--hair-2);
+  position:relative;overflow:hidden;transition:.22s}
+.rt .box::after{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent 0 7px,rgba(216,255,62,.05) 7px 8px)}
+.rt:hover .box{border-color:var(--acid);transform:translateY(-3px)}
+.rt .box b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--acid);z-index:1}
+.rt .cap{font-size:12px;color:var(--ink-2);margin-top:9px;line-height:1.45}
+.rt .cap i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+
+/* two-crop diagram */
+.crops{display:flex;gap:22px;flex-wrap:wrap;margin:24px 0}
+.crop{flex:1;min-width:210px;background:var(--surface);border:1px solid var(--hair);padding:18px}
+.crop .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px;display:block}
+.crop .stage{position:relative;background:#0E0E11;border:1px dashed var(--hair-2);
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}
+.crop .mask{position:absolute;border:1.5px solid var(--acid);background:rgba(216,255,62,.09)}
+.crop .note{font-size:12.5px;color:var(--ink-2);margin-top:12px}
+.crop .note b{color:var(--acid);font-family:var(--mono);font-size:11.5px}
+
+footer{border-top:1px solid var(--hair);margin-top:60px;padding-top:22px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+/* entrance */
+@media (prefers-reduced-motion:no-preference){
+  .mast .in>*{animation:rise .7s cubic-bezier(.16,.8,.3,1) both}
+  .mast .kicker{animation-delay:.02s}.wordmark{animation-delay:.08s}
+  .mast .lede{animation-delay:.16s}.mast .meta{animation-delay:.22s}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 20px 90px}
+  nav.idx{position:static;height:auto;padding:34px 0 0;border-bottom:1px solid var(--hair);
+    padding-bottom:20px}
+  nav.idx .list{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  main{padding-top:8px}
+  .mast .in{padding:52px 20px 32px}
+  .step{grid-template-columns:38px 1fr;gap:14px}
+  .step .n{font-size:30px}
+  table{font-size:13.5px}th,td{padding:10px 11px}
+}
+@media print{
+  body{background:#fff;color:#000}body::before{display:none}
+  nav.idx,.mast .glow{display:none}.shell{display:block}
+  section{border-color:#ddd;page-break-inside:avoid}
+  table{background:#fff}td,th{color:#000}code{color:#000;background:#f2f2f2}
+}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="in">
+    <div class="glow"></div>
+    <p class="kicker">Store Operations Manual</p>
+    <h1 class="wordmark">Found<em>Seoul</em></h1>
+    <p class="lede">매일 스토어를 운영하는 분을 위한 문서입니다. 상품 올리기, 사진 준비하기, 블로그 글 쓰기 — 이 세 가지가 대부분입니다. 코드를 몰라도 됩니다.</p>
+    <div class="meta">
+      <span>Ver <b>2026-08-01</b></span>
+      <span>Shopify Admin</span>
+      <span>문의 <b>개발 담당자</b></span>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="idx">
+    <b>Index</b>
+    <div class="list">
+      <a href="#s0"><span>00</span>시작 전에</a>
+      <a href="#s1"><span>01</span>브랜드 이름 표기</a>
+      <a href="#s2"><span>02</span>상품 등록하기</a>
+      <a href="#s3"><span>03</span>사진 준비하기</a>
+      <a href="#s4"><span>04</span>JOURNEY 글 쓰기</a>
+      <a href="#s5"><span>05</span>안 해도 되는 것</a>
+      <a href="#s6"><span>06</span>가끔 하는 일</a>
+      <a href="#s7"><span>07</span>문제 해결</a>
+      <a href="#s8"><span>08</span>남은 작업</a>
+    </div>
+  </nav>
+
+  <main>
+
+  <section id="s0">
+    <div class="hd"><span class="num">00</span></div>
+    <h2>시작 전에</h2>
+    <p>편집하는 곳은 두 군데입니다. 거의 모든 작업은 ①에서 합니다.</p>
+    <table>
+      <thead><tr><th></th><th>어디서</th><th>무엇을</th></tr></thead>
+      <tbody>
+        <tr><td><strong>①</strong></td><td>Shopify <strong>관리자</strong></td><td>상품, 컬렉션, 블로그 글, 메뉴</td></tr>
+        <tr><td><strong>②</strong></td><td><strong>테마 편집기</strong><br>온라인 스토어 → 테마 → ⋯ → 사용자 지정</td><td>화면에 고정으로 박히는 사진·문구<br>(메인 큰 사진, ABOUT 소개글 등)</td></tr>
+      </tbody>
+    </table>
+    <div class="call">
+      <span class="lbl">구분하는 법</span>
+      <p>여러 곳에서 반복해 쓰이는 것(상품·글)은 <strong>①</strong>, 특정 화면 한 자리에만 들어가는 사진·문구는 <strong>②</strong>입니다.</p>
+    </div>
+  </section>
+
+  <section id="s1">
+    <div class="hd"><span class="num">01</span></div>
+    <h2>브랜드 이름 표기</h2>
+    <p>가장 헷갈리는 부분입니다. <strong>자리마다 쓰는 형태가 조금씩 다릅니다.</strong></p>
+    <table>
+      <thead><tr><th>어디에 넣나</th><th>East oklm</th><th>HITCH</th><th>Dumbpatches</th></tr></thead>
+      <tbody>
+        <tr><td>상품 제목 앞</td><td><code>East oklm,</code></td><td><code>HITCH</code></td><td><code>Dumbpatches</code></td></tr>
+        <tr><td><strong>공급업체</strong></td><td><code>East oklm,</code></td><td><code>HITCH</code></td><td><code>Dumbpatches</code></td></tr>
+        <tr><td>컬렉션 이름</td><td><code>East oklm</code></td><td><code>HITCH</code></td><td><code>Dumbpatches</code></td></tr>
+        <tr><td>컬렉션 주소</td><td><code>east-oklm</code></td><td><code>hitch</code></td><td><code>dumbpatches</code></td></tr>
+        <tr><td>블로그 글 태그</td><td><code>East oklm</code></td><td><code>HITCH</code></td><td><code>Dumbpatches</code></td></tr>
+      </tbody>
+    </table>
+    <p><strong>East oklm만 콤마가 붙습니다.</strong> 브랜드 로고 자체가 그런 형태라서 그렇습니다. 나머지 둘은 콤마가 없습니다.</p>
+
+    <h3>세 가지만 기억하세요</h3>
+    <table>
+      <tbody>
+        <tr><td><strong style="color:var(--warn)">띄어쓰기·철자</strong></td><td><strong>정확히</strong> 맞춰야 합니다. <code>East oklm</code> ⭕ / <code>Eastoklm</code> ❌ / 뒤에 공백 ❌</td></tr>
+        <tr><td><strong style="color:var(--ok)">대문자·소문자</strong></td><td>달라도 됩니다. <code>HITCH</code> = <code>Hitch</code> = <code>hitch</code></td></tr>
+        <tr><td><strong style="color:var(--ok)">콤마</strong></td><td>있어도 없어도 됩니다. 시스템이 알아서 맞춥니다</td></tr>
+      </tbody>
+    </table>
+
+    <div class="call warn">
+      <span class="lbl">주의 ① — 태그에는 콤마를 넣을 수 없습니다</span>
+      <p>Shopify가 콤마를 “다음 태그” 구분 기호로 쓰기 때문입니다. 공급업체가 <code>East oklm,</code>이어도 태그는 <code>East oklm</code>으로 적으세요. 연결은 정상 작동합니다.</p>
+    </div>
+    <div class="call warn">
+      <span class="lbl">주의 ② — 컬렉션 주소는 자동 생성됩니다</span>
+      <p>이름을 <code>East oklm</code>으로 적으면 주소가 <code>east-oklm</code>이 됩니다. 다만 같은 이름이 이미 있으면 <code>east-oklm-1</code>처럼 숫자가 붙습니다. 저장 후 <strong>“검색 엔진 목록 편집”</strong>에서 확인하고 숫자를 지우세요.</p>
+    </div>
+    <div class="call">
+      <span class="lbl">가장 안전한 방법</span>
+      <p>이미 등록된 같은 브랜드 상품을 열어 공급업체 칸을 <strong>복사해 붙여넣기</strong> 하세요. 타이핑하지 않으면 틀릴 일이 없습니다.</p>
+    </div>
+  </section>
+
+  <section id="s2">
+    <div class="hd"><span class="num">02</span></div>
+    <h2>상품 등록하기</h2>
+    <p>가장 자주 하는 작업입니다. <strong>관리자 → 상품 → 상품 추가</strong></p>
+
+    <div class="step"><div class="n">1</div><div>
+      <p class="t">제목</p>
+      <pre>East oklm, Logo Hoodie</pre>
+      <p><code>브랜드, 상품명</code> 형식으로 적으세요. 상품 페이지에서 콤마 뒤가 자동으로 줄바꿈됩니다.</p>
+    </div></div>
+
+    <div class="step"><div class="n">2</div><div>
+      <p class="t">설명</p>
+      <p>소재, 핏, 세탁 방법 등을 적습니다. 비워두면 상품 페이지에 설명 영역이 아예 안 나옵니다.</p>
+    </div></div>
+
+    <div class="step"><div class="n">3</div><div>
+      <p class="t">사진</p>
+      <p>준비한 사진을 끌어다 놓습니다. <strong>첫 번째 사진이 목록의 대표 사진</strong>이 됩니다. 만드는 법은 <a href="#s3" style="color:var(--acid)">03 사진 준비하기</a>.</p>
+    </div></div>
+
+    <div class="step"><div class="n">4</div><div>
+      <p class="t">가격</p>
+      <p>숫자만 입력합니다. 예: <code>89000</code></p>
+    </div></div>
+
+    <div class="step"><div class="n">5</div><div>
+      <p class="t">공급업체 <span class="req">가장 중요</span></p>
+      <p>오른쪽 <strong>제품 구성</strong> 칸의 <strong>공급업체</strong>에 브랜드 이름을 적습니다.</p>
+      <pre><b>East oklm,</b>        HITCH        Dumbpatches
+     ↑ 콤마 있음      ↑ 없음        ↑ 없음</pre>
+      <p>여기가 틀리면 상품 페이지의 브랜드 링크와 아래쪽 JOURNEY 글 연결이 깨집니다.</p>
+    </div></div>
+
+    <div class="step"><div class="n">6</div><div>
+      <p class="t">사이즈</p>
+      <p><strong>변형</strong> 칸 → <strong>옵션 추가</strong> → 옵션 이름 <code>Size</code>, 값 <code>S</code> <code>M</code> <code>L</code></p>
+      <p>이걸 만들지 않으면 상품 페이지에 사이즈 선택 버튼이 안 나옵니다.</p>
+    </div></div>
+
+    <div class="step"><div class="n">7</div><div>
+      <p class="t">컬렉션</p>
+      <p>오른쪽 <strong>컬렉션</strong> 칸에서 브랜드 컬렉션 <strong>하나만</strong> 고릅니다. 전체 상품 목록에는 자동으로 들어갑니다.</p>
+    </div></div>
+
+    <div class="step"><div class="n">8</div><div>
+      <p class="t">게시 설정</p>
+      <p>상태 → <code>활성</code> · 판매 채널 → <code>Online Store</code> 체크</p>
+      <p><strong>둘 중 하나라도 빠지면 화면에 안 보입니다.</strong> 상품이 안 보인다는 문제의 대부분이 이것입니다.</p>
+    </div></div>
+
+    <div class="step"><div class="n">9</div><div>
+      <p class="t">저장하고 확인</p>
+      <ul>
+        <li>브랜드 페이지에 상품이 보이는가</li>
+        <li>홈 화면 PRODUCTS 줄에 보이는가</li>
+        <li>상품을 눌렀을 때 사이즈 버튼이 나오는가</li>
+        <li>브랜드 이름을 누르면 그 브랜드 목록으로 가는가</li>
+      </ul>
+    </div></div>
+
+    <h3>품절 처리하기</h3>
+    <p><strong>변형</strong>에서 해당 사이즈 선택 → 재고 추적 켜기 → 수량 <code>0</code> → “재고 없을 때 계속 판매” <strong>체크 해제</strong></p>
+    <p>→ 상품 페이지에서 그 사이즈 버튼에 회색 빗금이 그어지고 선택이 안 됩니다.</p>
+  </section>
+
+  <section id="s3">
+    <div class="hd"><span class="num">03</span></div>
+    <h2>사진 준비하기</h2>
+    <p>픽셀 크기보다 <strong>비율</strong>이 중요합니다. 화면마다 사진이 잘리는 비율이 정해져 있고, 올린 사진은 그 비율에 맞춰 <strong>가운데를 기준으로</strong> 잘립니다.</p>
+
+    <div class="ratios">
+      <div class="rt"><div class="box" style="aspect-ratio:3/2"><b>3 : 2</b></div>
+        <div class="cap">메인 큰 사진<i>2400 × 1600</i></div></div>
+      <div class="rt"><div class="box" style="aspect-ratio:16/9"><b>16 : 9</b></div>
+        <div class="cap">블로그 대표<i>1920 × 1080</i></div></div>
+      <div class="rt"><div class="box" style="aspect-ratio:3/2"><b>3 : 2</b></div>
+        <div class="cap">ABOUT<i>1200 × 800</i></div></div>
+      <div class="rt"><div class="box" style="aspect-ratio:5/6"><b>5 : 6</b></div>
+        <div class="cap">브랜드 대표<i>1200 × 1440</i></div></div>
+      <div class="rt"><div class="box" style="aspect-ratio:1/1"><b>1 : 1</b></div>
+        <div class="cap">상품 사진<i>1200 × 1200</i></div></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-3)">↑ 도형은 실제 비율대로 그려져 있습니다. 크기는 <strong>최소값</strong>이며, 더 크게 올려도 화면에서 더 선명해지지는 않습니다.</p>
+
+    <h3>상품 사진만 정사각형인 이유</h3>
+    <p>같은 사진 한 장이 <strong>두 곳에서 다르게 잘립니다.</strong></p>
+
+    <div class="crops">
+      <div class="crop">
+        <span class="lbl">목록 · 홈 카드</span>
+        <div class="stage"><div class="mask" style="aspect-ratio:5/7;height:100%"></div></div>
+        <p class="note">세로로 길게 <b>5 : 7</b> — 좌우가 잘림</p>
+      </div>
+      <div class="crop">
+        <span class="lbl">상품 상세</span>
+        <div class="stage"><div class="mask" style="aspect-ratio:27/20;width:100%"></div></div>
+        <p class="note">가로로 넓게 <b>27 : 20</b> — 위아래가 잘림</p>
+      </div>
+    </div>
+
+    <p>세로로 만들면 상세에서 위아래가 날아가고, 가로로 만들면 목록에서 좌우가 날아갑니다. <strong>정사각형 + 가장자리 여백</strong>이면 어느 쪽으로 잘려도 상품이 안 잘립니다.</p>
+
+    <div class="call">
+      <span class="lbl">한 줄 요약</span>
+      <p><strong>1200 × 1200 정사각형 · 상품을 가운데 · 사방에 10~15% 여백.</strong> 상품당 3~4장.</p>
+    </div>
+
+    <h3>파일 규칙</h3>
+    <ul>
+      <li>형식 <strong>JPG</strong> (투명 배경이 필요하면 PNG)</li>
+      <li>용량 <strong>한 장 300~500KB 이하</strong> — 너무 크면 사이트가 느려집니다</li>
+    </ul>
+
+    <h3>사진을 안 넣으면</h3>
+    <p>빈 화면이 되지는 않습니다. 회색 상자가 대신 보입니다. 브랜드 대표 사진은 안 넣어도 <strong>컬렉션 사진이나 첫 상품 사진이 자동으로</strong> 들어갑니다.</p>
+  </section>
+
+  <section id="s4">
+    <div class="hd"><span class="num">04</span></div>
+    <h2>Journey 글 쓰기</h2>
+    <p><strong>관리자 → 콘텐츠 → 블로그 게시물</strong></p>
+    <table>
+      <thead><tr><th>칸</th><th>어떻게 쓰나</th><th>예시</th></tr></thead>
+      <tbody>
+        <tr><td><strong>제목</strong></td><td><code>브랜드 : 헤드라인</code></td><td><code>East oklm, : ONLY ONE GARMENT</code></td></tr>
+        <tr><td><strong>태그</strong></td><td>브랜드 이름 (<strong>콤마 없이</strong>)</td><td><code>East oklm</code></td></tr>
+        <tr><td><strong>대표 이미지</strong></td><td>목록과 상세의 배너 사진</td><td>1920 × 1080 (16:9)</td></tr>
+        <tr><td><strong>내용</strong></td><td>글 본문 (사진도 넣을 수 있음)</td><td></td></tr>
+      </tbody>
+    </table>
+    <p>제목의 콜론(<code>:</code>) 앞부분이 화면에서 브랜드 이름으로 표시됩니다. 여기엔 콤마를 써도 됩니다.</p>
+
+    <h3>태그를 꼭 넣으세요</h3>
+    <p>블로그 글의 태그는 <strong>그 브랜드 상품 페이지에 이 글을 띄우는 역할</strong>을 합니다. <code>East oklm</code> 태그를 단 글은 East oklm 상품 페이지 아래에 자동으로 나타납니다.</p>
+    <table>
+      <thead><tr><th>브랜드</th><th>글에 넣을 태그</th></tr></thead>
+      <tbody>
+        <tr><td>East oklm</td><td><code>East oklm</code> — 콤마 빼고</td></tr>
+        <tr><td>HITCH</td><td><code>HITCH</code></td></tr>
+        <tr><td>Dumbpatches</td><td><code>Dumbpatches</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>그 외</h3>
+    <ul>
+      <li>배너 위의 큰 문구는 고정값이라 글마다 입력할 필요 없습니다</li>
+      <li>목록 순서는 <strong>발행일</strong> 순입니다</li>
+      <li>요약(Excerpt) 칸은 쓰지 않으니 비워두세요</li>
+    </ul>
+  </section>
+
+  <section id="s5">
+    <div class="hd"><span class="num">05</span></div>
+    <h2>안 해도 되는 것</h2>
+    <table>
+      <tbody>
+        <tr><td><strong>상품 태그</strong></td><td>비워두세요. 브랜드 연결은 공급업체가 전부 처리합니다</td></tr>
+        <tr><td><strong>전체 상품 컬렉션에 넣기</strong></td><td>자동으로 들어갑니다</td></tr>
+        <tr><td><strong>상품 요약, SEO 설명</strong></td><td>지금 화면에서 쓰지 않습니다</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="s6">
+    <div class="hd"><span class="num">06</span></div>
+    <h2>가끔 하는 일</h2>
+
+    <h3>컬렉션 만들기</h3>
+    <p><strong>관리자 → 상품 → 컬렉션</strong> — 새 브랜드가 생겼을 때만 만듭니다.</p>
+    <ul>
+      <li><strong>자동</strong> — 조건을 <code>공급업체 = 브랜드명</code>으로 걸면 해당 상품이 알아서 담깁니다 <em>(추천)</em></li>
+      <li><strong>수동</strong> — 상품을 하나씩 골라 담습니다</li>
+    </ul>
+    <p>컬렉션의 <strong>제목과 설명</strong>은 그 페이지 맨 위에 그대로 나옵니다.</p>
+
+    <h3>메뉴 바꾸기</h3>
+    <p><strong>관리자 → 온라인 스토어 → 메뉴 → main-menu</strong> — 오른쪽으로 드래그하면 하위 항목이 됩니다.</p>
+    <pre>SHOP
+  ├ VIEW ALL          <b>← 전체 상품으로 연결</b>
+  ├ CLOTHING          <b>← 제목일 뿐, 클릭 대상 아님</b>
+  │   ├ East Oklm
+  │   └ Hitch
+  ├ LIFE STYLE
+  │   └ Mesh Coffee
+  └ ACC
+      └ Dumbpatches</pre>
+    <p>CLOTHING 같은 그룹 제목도 Shopify 규칙상 링크를 비울 수 없습니다. <code>#</code>을 넣어두면 됩니다.</p>
+
+    <h3>화면 고정 사진·문구 바꾸기</h3>
+    <p><strong>온라인 스토어 → 테마 → ⋯ → 사용자 지정</strong> → 위쪽에서 페이지 선택</p>
+    <table>
+      <thead><tr><th>화면</th><th>바꿀 수 있는 것</th></tr></thead>
+      <tbody>
+        <tr><td>홈</td><td>메인 큰 사진/영상, 그 아래 문구</td></tr>
+        <tr><td>홈</td><td>브랜드 3개 영역 — 연결할 컬렉션, 대표 사진</td></tr>
+        <tr><td>홈</td><td>JOURNEY에 쓸 블로그 선택</td></tr>
+        <tr><td>ABOUT</td><td>제목, 소개글, 사진</td></tr>
+        <tr><td>JOURNEY 목록</td><td>맨 위 소개 문단</td></tr>
+      </tbody>
+    </table>
+    <p>바꾼 뒤 <strong>저장</strong>을 눌러야 반영됩니다.</p>
+  </section>
+
+  <section id="s7">
+    <div class="hd"><span class="num">07</span></div>
+    <h2>문제 해결</h2>
+    <table>
+      <thead><tr><th>증상</th><th>확인할 것</th></tr></thead>
+      <tbody>
+        <tr><td>상품이 화면에 안 보여요</td><td>상태가 <code>활성</code>인지, 판매 채널에 <code>Online Store</code>가 체크됐는지</td></tr>
+        <tr><td>사이즈 버튼이 안 나와요</td><td>옵션 이름이 <code>Size</code>인지</td></tr>
+        <tr><td>브랜드 이름을 눌러도 안 넘어가요</td><td>공급업체 철자가 다른 상품과 같은지</td></tr>
+        <tr><td>상품 페이지 아래 글이 엉뚱해요</td><td>블로그 글의 태그가 그 브랜드 이름인지</td></tr>
+        <tr><td>설명·사진 영역이 비어 보여요</td><td>해당 칸이 비어 있으면 영역 자체가 사라집니다</td></tr>
+        <tr><td>바꿨는데 그대로예요</td><td>강력 새로고침 — Mac <code>Cmd+Shift+R</code> / Windows <code>Ctrl+Shift+R</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="s8">
+    <div class="hd"><span class="num">08</span></div>
+    <h2>남은 작업</h2>
+    <p>오픈 전에 처리해야 할 것들입니다.</p>
+    <table>
+      <tbody>
+        <tr><td><strong>ABOUT 소개글</strong></td><td>아직 임시 영문(Lorem ipsum)입니다. 실제 브랜드 소개로 교체</td></tr>
+        <tr><td><strong>푸터 링크</strong></td><td>Terms &amp; Conditions, Privacy Policy는 설정 → 정책에서 만들고 메뉴에 연결.<br>Cookies, Careers, Environmental Responsibility, Features는 페이지를 직접 생성</td></tr>
+        <tr><td><strong>Instagram 링크</strong></td><td>실제 계정 주소로 연결</td></tr>
+        <tr><td><strong>컬렉션 설명</strong></td><td>임시 문구가 남아 있으면 교체</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>FOUND SEOUL · Store Operations Manual · 2026-08-01</footer>
+  </main>
+</div>
+
+</body>
+</html>
